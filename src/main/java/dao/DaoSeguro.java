@@ -17,12 +17,15 @@ public class DaoSeguro {
 
 	public DaoSeguro()
 	{
-		
+		try {
+			Class.forName("com.mysql.jdbc.Driver");
+		} catch (ClassNotFoundException e) {
+				e.printStackTrace();
+		}
 	}
 
-	public int agregarCategoria(Seguro seguro) {
-		String query = "INSERT INTO seguros (idseguro, descripcion, idtipo, costo) VALUES (" + seguro.getIdSeguro() + ", '" + seguro.getDescripcion() + seguro.getIdTipo() + " ,'" + seguro.getCostoContratacion() + " ,'" + seguro.getCostoAsegurado() + "')";
-		Connection cn = null;
+	public int agregarSeguro(Seguro seguro) {
+		String query = "INSERT INTO seguros (descripcion, idTipo, costoContratacion, costoAsegurado) VALUES ('" + seguro.getDescripcion() + "', " + seguro.getIdTipo() + ", " + seguro.getCostoContratacion() + ", " + seguro.getCostoAsegurado() + ")";Connection cn = null;
 		int filas = 0;
 		try 
 		{

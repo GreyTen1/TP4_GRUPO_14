@@ -1,7 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ page import="dao.DaoSeguro" %>
+<%@ page import="dao.DaoSeguro,entidad.Seguro, java.lang.String" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -19,7 +19,7 @@
 	<table>
 		<tr> 
 			<td> Id Seguro: </td>
-			<td> <input type="text" name="txtIdSeguro"> </td>
+			<td> </td>
 		</tr>
 		<tr> 
 			<td> Descripcion: </td>
@@ -28,16 +28,12 @@
 		<tr> 
 			<td> Tipo de Seguro: </td>
 			<td> 
-				<select name="tiposeguro" name="ddlTipoSeguro">
-				    <option value="segurodecasas">Seguro De Casas</option>
-				    <option value="segurodevidas">Seguro De Vidas</option>
-				    <option value="segurodemotos">Seguro De Motos</option>
+				<select name="ddlTipoSeguro">
+				    <option value="1">Seguro De Casas</option>
+				    <option value="2">Seguro De Vidas</option>
+				    <option value="3">Seguro De Motos</option>
 				</select> 
 			</td>
-		</tr>
-		<tr> 
-			<td> Id Seguro: </td>
-			<td> <input type="text" name="txtIdSeguro"> </td>
 		</tr>
 		<tr> 
 			<td> Costo contratacion: </td>
@@ -48,15 +44,31 @@
 			<td> <input type="text" name="txtcostoMaxAsegurado"> </td>
 		</tr>
 		<tr> 
-			<td>  </td>
-			<td> <input type="submit" value="Aceptar">  </td>
-		</tr>
-		<tr> 
-			<td> <input type="submit" value="Aceptar">  </td>
+			<td> <input type="submit" name="btnAceptar" value="Aceptar">  </td>
 			<td>  </td>
 		</tr>
 	</table>
 </form>
+
+<%
+	if(request.getParameter("btnAceptar") !=null){
+
+		String desc = request.getParameter("txtDescripcion");
+		int tipoSeguro = Integer.parseInt(request.getParameter("ddlTipoSeguro"));
+		double costoContratacion = Double.parseDouble(request.getParameter("txtCostoContratacion"));
+		double costoMaxAsegurado = Double.parseDouble(request.getParameter("txtcostoMaxAsegurado"));
+
+		Seguro seguro = new Seguro();
+		seguro.setDescripcion(desc);
+		seguro.setIdTipo(tipoSeguro);
+		seguro.setCostoContratacion(costoContratacion);
+		seguro.setCostoAsegurado(costoMaxAsegurado);
+		
+		DaoSeguro daoSeguro = new DaoSeguro();
+		int filas = daoSeguro.agregarSeguro(seguro);
+		
+	}
+%>
 
 </body>
 </html>
