@@ -55,7 +55,7 @@ public class DaoSeguro {
 				c.setDescripcion(rs.getString("descripcion"));
 				c.setIdTipo(rs.getInt("idtipo"));
 				c.setCostoContratacion(rs.getDouble("costoContratacion"));
-				c.setCostoAsegurado(rs.getDouble("costAsegurado"));
+				c.setCostoAsegurado(rs.getDouble("costoAsegurado"));
 				lSeguros.add(c);
 			}
 			

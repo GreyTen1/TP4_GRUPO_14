@@ -1,5 +1,15 @@
+<%@page import="java.util.ArrayList"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
+<%@ page import="dao.DaoSeguro,entidad.Seguro" %>
+
+<% 
+	DaoSeguro dao = new DaoSeguro();
+	ArrayList<Seguro> lista = dao.obtenerTodasLasCategorias();
+	
+%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -30,18 +40,22 @@
 <td> Costo Contratacion </td>
 <td> Costo Maximo Asegurado </td>
 </tr>
-<tr> 
-<td> </td>
-<td> </td>
-<td> </td>
-<td> </td>
-</tr>
-<tr> 
-<td> </td>
-<td> </td>
-<td> </td>
-<td> </td>
-</tr>
+<%
+if(lista.isEmpty() == false)
+{
+		for(Seguro seg : lista)
+		{
+			%>
+			<tr>
+			<td> <%= seg.getIdSeguro() %> </td>
+			<td> <%= seg.getDescripcion() %> </td>
+			<td> <%= seg.getCostoContratacion() %> </td>
+			<td> <%= seg.getCostoAsegurado() %> </td>
+			</tr>
+		<%
+		}
+	} 
+	%>
 </table>
 </body>
 </html>

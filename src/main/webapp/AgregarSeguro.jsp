@@ -71,11 +71,11 @@
 
 			if(filas > 0){
 %>
-				<p>Operacion exitosa</p>
+				<b style="color: green;">Operacion exitosa</b>
 <%
 			} else {
 %>
-				<p>No se pudo agregar el seguro</p>
+				<p style="color: red;">No se pudo agregar el seguro</p>
 <%
 			}
 		}
@@ -83,7 +83,7 @@
 	catch(NumberFormatException e)
 	{
 %>
-		<p>Error: el costo de contratacion y el costo maximo asegurado deben ser numeros validos</p>
+		<p style="color: red;">Error: el costo de contratacion y el costo maximo asegurado deben ser numeros validos</p>
 <%
 	}
 	catch(Exception e)
