@@ -6,8 +6,16 @@
 
 <% 
 	DaoSeguro dao = new DaoSeguro();
-	ArrayList<Seguro> lista = dao.obtenerTodasLasCategorias();
-	
+ArrayList<Seguro> lista;
+if(request.getParameter("btnFiltrar") != null)
+{
+int idTipo = Integer.parseInt(request.getParameter("tiposeguro"));
+lista = dao.obtenerSegurosPorTipo(idTipo);
+}
+else
+{
+lista = dao.obtenerTodasLasCategorias();
+}
 %>
 
 <!DOCTYPE html>
@@ -24,13 +32,17 @@
 <H1>"Tipos de Seguros en la base de datos"</H1>
 
 
-<a> Busqueda por tipo de seguros:</a>
+<form method="get">
+ 
 <select name="tiposeguro">
-    <option value="segurodecasas">Seguro De Casas</option>
-    <option value="segurodevidas">Seguro De Vidas</option>
-    <option value="segurodemotos">Seguro De Motos</option>
-</select> 
-<input button="filtrar" value="Filtrar">
+<option value="1">Seguro De Casas</option>
+<option value="2">Seguro De Vidas</option>
+<option value="3">Seguro De Motos</option>
+</select>
+ 
+<input type="submit" name="btnFiltrar" value="Filtrar">
+ 
+</form>
 <br><br>
 
 <table border="1" cellspacing="2">

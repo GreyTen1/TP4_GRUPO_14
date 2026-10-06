@@ -66,6 +66,48 @@ public class DaoSeguro {
 		}
 		return lSeguros;
 	}
-
+	
+	public int ObtenerProximoId() {
+		
+		String query ="SELECT MAX(idSeguro) AS UltimoId FROM seguros";
+		int ultimoId=0;
+		Connection cn = null;
+		try {
+			cn = DriverManager.getConnection(host+dbName, user, pass);
+			Statement st = cn.createStatement();
+			ResultSet rs = st.executeQuery(query);
+			if(rs.next()) {
+			ultimoId = rs.getInt("UltimoId");}
+		
+			}catch (Exception e)
+			{
+				e.printStackTrace();
+			}
+		return ultimoId+1;
+	}
+	
+	public ArrayList<Seguro> obtenerSegurosPorTipo(int idTipo)
+	{
+	ArrayList<Seguro> lista = new ArrayList<Seguro>();
+	String query = "SELECT * FROM seguros WHERE idTipo = ?"; 
+	try {
+	Connection cn = DriverManager.getConnection(host+dbName,user,pass);
+	PreparedStatement ps = cn.prepareStatement(query);
+	ps.setInt(1, idTipo);
+	ResultSet rs = ps.executeQuery();
+	while(rs.next())
+	{
+	Seguro s = new Seguro();
+	s.setIdSeguro(rs.getInt("idSeguro"));
+	s.setDescripcion(rs.getString("descripcion"));
+	s.setCostoContratacion(rs.getDouble("costoContratacion"));
+	s.setCostoAsegurado(rs.getDouble("costoAsegurado"));
+	lista.add(s);
+	}
+	} catch(Exception e) {
+	e.printStackTrace();
+	}
+	return lista;
+}
 }
 

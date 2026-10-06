@@ -14,11 +14,11 @@
 <a href="ListarSeguros.jsp"> Listar Seguros </a>
 
 <H1>Agregar seguros</H1>
-
+<%DaoSeguro dao = new DaoSeguro(); %>
 <form method="post" action="AgregarSeguro.jsp">
 	<table>
 		<tr> 
-			<td> Id Seguro: </td>
+			<td> Id Seguro:&emsp;&emsp;&emsp;<%=dao.ObtenerProximoId()%></td>
 			<td> </td>
 		</tr>
 		<tr> 
@@ -70,8 +70,9 @@
 			int filas = daoSeguro.agregarSeguro(seguro);
 
 			if(filas > 0){
-%>
+			response.sendRedirect("AgregarSeguro.jsp?ok=1");%>
 				<b style="color: green;">Operacion exitosa</b>
+				
 <%
 			} else {
 %>
