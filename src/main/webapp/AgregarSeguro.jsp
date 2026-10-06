@@ -51,22 +51,46 @@
 </form>
 
 <%
-	if(request.getParameter("btnAceptar") !=null){
+	try
+	{
+		if(request.getParameter("btnAceptar") != null){
 
-		String desc = request.getParameter("txtDescripcion");
-		int tipoSeguro = Integer.parseInt(request.getParameter("ddlTipoSeguro"));
-		double costoContratacion = Double.parseDouble(request.getParameter("txtCostoContratacion"));
-		double costoMaxAsegurado = Double.parseDouble(request.getParameter("txtcostoMaxAsegurado"));
+			String desc = request.getParameter("txtDescripcion");
+			int tipoSeguro = Integer.parseInt(request.getParameter("ddlTipoSeguro"));
+			double costoContratacion = Double.parseDouble(request.getParameter("txtCostoContratacion"));
+			double costoMaxAsegurado = Double.parseDouble(request.getParameter("txtcostoMaxAsegurado"));
 
-		Seguro seguro = new Seguro();
-		seguro.setDescripcion(desc);
-		seguro.setIdTipo(tipoSeguro);
-		seguro.setCostoContratacion(costoContratacion);
-		seguro.setCostoAsegurado(costoMaxAsegurado);
-		
-		DaoSeguro daoSeguro = new DaoSeguro();
-		int filas = daoSeguro.agregarSeguro(seguro);
-		
+			Seguro seguro = new Seguro();
+			seguro.setDescripcion(desc);
+			seguro.setIdTipo(tipoSeguro);
+			seguro.setCostoContratacion(costoContratacion);
+			seguro.setCostoAsegurado(costoMaxAsegurado);
+
+			DaoSeguro daoSeguro = new DaoSeguro();
+			int filas = daoSeguro.agregarSeguro(seguro);
+
+			if(filas > 0){
+%>
+				<p>Operacion exitosa</p>
+<%
+			} else {
+%>
+				<p>No se pudo agregar el seguro</p>
+<%
+			}
+		}
+	}
+	catch(NumberFormatException e)
+	{
+%>
+		<p>Error: el costo de contratacion y el costo maximo asegurado deben ser numeros validos</p>
+<%
+	}
+	catch(Exception e)
+	{
+%>
+		<p>Error inesperado</p>
+<%
 	}
 %>
 
